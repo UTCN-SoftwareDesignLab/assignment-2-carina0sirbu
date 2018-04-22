@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<h1>Book</h1>
+<form action="#" th:action="@{/book}" th:object = "${bookDto}" method="post">
+    <p>Name: <input type="text" th:field="*{name}"/></p>
+
+    <p><input type="submit" name = "search" value="Search book" /></p>
+
+    <p>Author Name: <input type="text" th:field="*{authorName}" /></p>
+    <p>Genre: <input type="text" th:field="*{genre}"  /></p>
+
+    <p>Price: <input type="text" th:field="*{price}"  /></p>
+    <p>Quantity: <input type="text" th:field="*{quantity}"  /></p>
+
+    <p><input type="submit" name = "create" value="Create book" /></p>
+    <p><input type="submit" name = "delete" value="Delete book" /></p>
+    <p><input type="submit" name = "update" value="Update book" /></p>
+</form>
+
+<p th:text="${message}"></p>
+
+</body>
+</html>
