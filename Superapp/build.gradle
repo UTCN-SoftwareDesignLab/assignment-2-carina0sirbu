@@ -20,6 +20,10 @@ repositories {
     mavenCentral()
 }
 
+repositories {
+    jcenter()
+}
+
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-jdbc")
@@ -31,4 +35,5 @@ dependencies {
     compile 'mysql:mysql-connector-java'
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile "org.mockito:mockito-core:1.+"
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import repository.UserRepository;
 
 import java.security.MessageDigest;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -59,8 +60,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public String getEncodedPassword(String username) {
-        return encodePassword(username);
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
     @Override

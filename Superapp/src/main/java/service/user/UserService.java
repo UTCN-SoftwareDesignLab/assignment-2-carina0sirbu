@@ -3,6 +3,8 @@ package service.user;
 import dto.UserDto;
 import model.User;
 
+import java.util.List;
+
 public interface UserService {
 
     void deleteByUsername(String username);
@@ -17,7 +19,7 @@ public interface UserService {
 
     User save(User user);
 
-    String getEncodedPassword(String username);
+    List<User> findAll();
 
     User findByUsernameAndPassword(String username, String password);
 }

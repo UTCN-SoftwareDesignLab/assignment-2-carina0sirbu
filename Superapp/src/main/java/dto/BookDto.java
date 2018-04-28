@@ -6,7 +6,7 @@ public class BookDto {
 
     private Long id;
 
-    @Size(min = 1)
+    @Size(min = 1, message = "Name must be at least one letter long")
     private String name;
 
     private String authorName;

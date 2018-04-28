@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import service.BookService;
 
@@ -32,7 +33,11 @@ public class BookController {
     }
 
     @PostMapping(params = "create")
-    public String createBook(@ModelAttribute BookDto bookDto, Model model) {
+    public String createBook(@ModelAttribute BookDto bookDto, BindingResult bindingResult, Model model) {
+
+        if(bindingResult.hasErrors()) {
+            return "login";
+        }
 
         if (bookService.create(bookDto)) {
 
@@ -45,7 +50,11 @@ public class BookController {
     }
 
     @PostMapping(params = "search")
-    public String searchBook(@RequestParam("name") String name, Model model, @ModelAttribute BookDto bookDto) {
+    public String searchBook(@RequestParam("name") String name, Model model, @ModelAttribute BookDto bookDto, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+            return "login";
+        }
 
         this.searchName = name;
 
