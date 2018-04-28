@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import service.BookService;
+
+import javax.jws.WebParam;
 import java.util.List;
 
 
@@ -30,35 +33,42 @@ public class UserController {
 
 
     @PostMapping(params = "genreSearch")
-    public String genreSearch(@ModelAttribute BookDto bookDto, Model model) {
+    public ModelAndView genreSearch(@ModelAttribute BookDto bookDto, Model model) {
 
         List<Book> bookList = bookService.findAllByGenre(bookDto.getGenre());
-        model.addAttribute("book", bookList);
 
-        return "searchPage";
+        ModelAndView mav = new ModelAndView("searchPage");
+        mav.addObject("book", bookList);
+
+        return mav;
     }
 
     @PostMapping(params = "titleSearch")
-    public String titleSearch(@RequestParam("name") String name, Model model) {
+    public ModelAndView titleSearch(@RequestParam("name") String name, @ModelAttribute BookDto bookDto, Model model) {
 
-        System.out.println(name);
         List<Book> bookList = bookService.findAllByName(name);
 
-
-        model.addAttribute(bookList);
-
-        return "searchPage";
+        ModelAndView mav = new ModelAndView("searchPage");
+        mav.addObject("book", bookList);
+        return mav;
     }
 
     @PostMapping(params = "authorSearch")
-    public String authorSearch(@ModelAttribute BookDto bookDto, Model model) {
+    public ModelAndView authorSearch(@ModelAttribute BookDto bookDto, Model model) {
 
         List<Book> bookList = bookService.findAllByAuthorName(bookDto.getAuthorName());
-        model.addAttribute("book", bookList);
 
-        return "searchPage";
+        ModelAndView mav = new ModelAndView("searchPage");
+        mav.addObject("book", bookList);
+        return mav;
     }
 
+    @PostMapping(params = "soldBook")
+    public String sellBook(@ModelAttribute BookDto bookDto,
+                           Model model) {
+
+        return "redirect:/sellBook";
+    }
 
 
 }

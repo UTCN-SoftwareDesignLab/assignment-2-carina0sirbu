@@ -16,4 +16,8 @@ public interface UserService {
     User findByUsername(String username);
 
     User save(User user);
+
+    String getEncodedPassword(String username);
+
+    User findByUsernameAndPassword(String username, String password);
 }

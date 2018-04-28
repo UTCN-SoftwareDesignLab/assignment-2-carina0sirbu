@@ -15,10 +15,6 @@ public interface BookService {
 
     boolean create(BookDto bookDto);
 
-    boolean delete(BookDto bookDto);
-
-    boolean update(BookDto bookDto);
-
     Book findByName(String name);
 
     List<Book> findAllByGenre(String genre);

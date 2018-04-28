@@ -37,19 +37,6 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public boolean delete(BookDto bookDto) {
-
-        Book book = new Book(bookDto.getName(), bookDto.getAuthorName(), bookDto.getGenre(), bookDto.getQuantity(), bookDto.getPrice());
-        bookRepository.delete(book);
-        return true;
-    }
-
-    @Override
-    public boolean update(BookDto bookDto) {
-        return false;
-    }
-
-    @Override
     public Book findByName(String name) {
         return bookRepository.findByName(name);
     }

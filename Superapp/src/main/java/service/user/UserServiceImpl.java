@@ -1,6 +1,7 @@
 package service.user;
 
 import dto.UserDto;
+import model.Role;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean create(UserDto userDto) {
 
-        User user = new User(userDto.getUsername(), encodePassword(userDto.getPassword()));
+        User user = new User(userDto.getUsername(), encodePassword(userDto.getPassword()), Role.USER);
         userRepository.save(user);
         return true;
     }
@@ -34,7 +35,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean delete(UserDto userDto) {
 
-        User user = new User(userDto.getUsername(), encodePassword(userDto.getPassword()));
+        User user = new User(userDto.getUsername(), encodePassword(userDto.getPassword()), Role.USER);
         userRepository.delete(user);
         return true;
     }
@@ -55,6 +56,16 @@ public class UserServiceImpl implements UserService{
     @Override
     public User save(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public String getEncodedPassword(String username) {
+        return encodePassword(username);
+    }
+
+    @Override
+    public User findByUsernameAndPassword(String username, String password) {
+        return userRepository.findByUsernameAndPassword(username, encodePassword(password));
     }
 
     private String encodePassword(String password) {

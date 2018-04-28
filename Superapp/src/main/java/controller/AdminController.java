@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import service.BookService;
+import service.report.ReportGenerator;
+import service.report.ReportGeneratorFactory;
 import service.user.UserService;
 
 @Controller
@@ -17,12 +19,12 @@ import service.user.UserService;
 public class AdminController {
 
     private BookService bookService;
-    private UserService userService;
+    private ReportGeneratorFactory reportGeneratorFactory;
 
     @Autowired
-    public AdminController(BookService bookService, UserService userService) {
+    public AdminController(BookService bookService, ReportGeneratorFactory reportGeneratorFactory) {
         this.bookService = bookService;
-        this.userService = userService;
+        this.reportGeneratorFactory = reportGeneratorFactory;
     }
 
     @GetMapping
@@ -34,18 +36,32 @@ public class AdminController {
     @PostMapping(params = "books")
     public String goToBooks(@ModelAttribute BookDto bookDto) {
 
-        return "book";
+        return "redirect:/book";
     }
 
     @PostMapping(params = "users")
     public String goToUsers(@ModelAttribute UserDto userDto) {
 
-        return "manageUser";
+        return "redirect:/manageUser";
     }
 
-    @PostMapping(params = "reports")
-    public String goToReports() {
+    @PostMapping(params = "pdfReport")
+    public String generatePdf(@ModelAttribute UserDto userDto, Model model) {
 
-        return "user";
+        ReportGenerator reportGenerator = reportGeneratorFactory.generateReport("pdf");
+        reportGenerator.generateReport();
+
+        model.addAttribute("message", "PDF report generated");
+        return "admin";
+    }
+
+    @PostMapping(params = "csvReport")
+    public String generateCsv(@ModelAttribute UserDto userDto, Model model) {
+
+        ReportGenerator reportGenerator = reportGeneratorFactory.generateReport("csv");
+        reportGenerator.generateReport();
+
+        model.addAttribute("message", "CSV report generated");
+        return "admin";
     }
 }

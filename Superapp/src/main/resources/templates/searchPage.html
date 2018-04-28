@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:td="http://www.w3.org/1999/xhtml">
 <head>
     <title>Getting Started: Handling Form Submission</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -23,12 +23,12 @@
 
     <body>
     <tr th:each = "bookHtml : ${book}">
-        <td th:text = "${bookHtml.id}" ></td>
-        <td th:text = "${bookHtml.name}" ></td>
-        <td th:text = "${bookHtml.authorName}" ></td>
-        <td th:text = "${bookHtml.genre}" ></td>
-        <td th:text = "${bookHtml.quantity}" ></td>
-        <td th:text = "${bookHtml.price}" ></td>
+        <td align="center" th:text = "${bookHtml.id}" ></td>
+        <td align="center" th:text = "${bookHtml.name}" ></td>
+        <td align="center" th:text = "${bookHtml.authorName}" ></td>
+        <td align="center" th:text = "${bookHtml.genre}" ></td>
+        <td align="center" th:text = "${bookHtml.quantity}" ></td>
+        <td align="center" th:text = "${bookHtml.price}" ></td>
 
     </tr>
     </body>

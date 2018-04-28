@@ -17,6 +17,11 @@ public class Book {
     private int quantity;
     private double price;
 
+    @Override
+    public String toString() {
+        return id + ", " + name + ", "+ authorName + ", " + genre + ", " +  price;
+    }
+
     public Book(String name, String authorName, String genre, int quantity, double price) {
         this.name = name;
         this.authorName = authorName;
@@ -75,15 +80,4 @@ public class Book {
         this.genre = genre;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", authorName='" + authorName + '\'' +
-                ", genre='" + genre + '\'' +
-                ", quantity=" + quantity +
-                ", price=" + price +
-                '}';
-    }
 }
