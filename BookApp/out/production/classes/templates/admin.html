@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+
+<h1>Administrator area</h1>
+<form action="#" th:action="@{/admin}" method="post">
+
+    <p><input type="submit" name = "authors" value="Process authors" /></p>
+
+    <p><input type="submit" name = "books" value="Process books" /></p>
+
+    <p><input type="submit" name = "users" value="Process users" /></p>
+
+    <h4>Please choose the format for the report:</h4>
+
+    <p><input type="submit" name = "pdfReport" value="Download PDF report" /></p>
+
+    <p><input type="submit" name = "csvReport" value="Download CSV report" /></p>
+
+</form>
+
+<p th:text="${message}"></p>
+</body>
+</html>

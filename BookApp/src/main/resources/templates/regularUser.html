@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<h1>Search section</h1>
+<form action="#" th:action="@{/regularUser}" th:object = "${bookDto}" method="post">
+
+    <p>Genre: <input type="text" th:field="*{genre}"/></p>
+    <p><input type="submit" name = "genreSearch" value="Search by genre" /></p>
+
+    <p>Title: <input type="text" th:field="*{name}"/></p>
+    <p><input type="submit" name = "titleSearch" value="Search by title" /></p>
+
+    <p>Author Name: <input type="text" th:field="*{authorName}"/></p>
+    <p><input type="submit" name = "authorSearch" value="Search by author's name" /></p>
+
+    <p><input type="submit" name = "soldBook" value="Sell books" /></p>
+
+
+
+</form>
+
+</body>
+</html>

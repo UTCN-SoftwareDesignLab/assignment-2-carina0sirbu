@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<h1>Manage authors</h1>
+<form action="#" th:action="@{/author}" th:object = "${authorDto}" method="post">
+    <p>Author Name: <input type="text" th:field="*{name}"/></p>
+
+    <p><input type="submit" name = "search" value="Search author" /></p>
+    <p><input type="submit" name = "create" value="Create author" /></p>
+    <p><input type="submit" name = "update" value="Update author" /></p>
+
+
+</form>
+
+<p th:text="${message}"></p>
+
+</body>
+</html>
