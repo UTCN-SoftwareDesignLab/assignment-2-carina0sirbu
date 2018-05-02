@@ -1,22 +1,19 @@
 package controller;
 
 import dto.AuthorDto;
-import dto.UserDto;
 import model.Author;
-import model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import service.author.AuthorService;
 
-import javax.validation.constraints.PastOrPresent;
 
 @Controller
 @RequestMapping(value = "/author")
 public class AuthorController {
 
     private AuthorService authorService;
-    private String searchAuthor;
 
     public AuthorController(AuthorService authorService) {
         this.authorService = authorService;
@@ -32,32 +29,32 @@ public class AuthorController {
     @PostMapping
     public String searchAuthor(Model model, @RequestParam("name") String name, @ModelAttribute AuthorDto authorDto) {
 
-        this.searchAuthor = name;
+        Author author = authorService.findByName(name);
 
-        if(authorService.findByName(name) == null) {
-            model.addAttribute("message", "Author is NOT in the system or some error occured");
-            return "author";
+        if (author == null) {
+
+            model.addAttribute("authorDto", authorDto);
+            model.addAttribute("message", "Author not in the system. Would you like to create it?");
         }
         else {
-            model.addAttribute("message", "Author registered");
-            return "author";
+
+            authorDto.setId(author.getId());
+
+            model.addAttribute("authorDto", authorDto);
         }
 
+        return "author";
     }
 
     @PostMapping(params = "update")
-    public String updateAuthor(@RequestParam("name") String name, Model model, @ModelAttribute AuthorDto authorDto) {
+    public String updateAuthor(Model model, @ModelAttribute AuthorDto authorDto, BindingResult bindingResult) {
 
-        Author author = authorService.findByName(searchAuthor);
-
-        author.setName(name);
-
-        if (authorService.save(author) == null) {
-            model.addAttribute("message", "Update failed");
+        if (bindingResult.hasErrors()) {
+            return "author";
         }
-        else {
-            model.addAttribute("message", "Author updated successfully!");
-        }
+
+        authorService.update(authorDto);
+        model.addAttribute("message", "Update successful");
 
         return "author";
     }

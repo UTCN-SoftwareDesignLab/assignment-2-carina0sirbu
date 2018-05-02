@@ -9,6 +9,7 @@ import repository.AuthorRepository;
 import repository.BookRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -48,6 +49,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Optional<Book> findById(Long id) {
+        return Optional.empty();
+    }
+
+
+    @Override
     public List<Book> findAllByGenre(String genre) {
         return bookRepository.findAllByGenre(genre);
     }
@@ -66,5 +73,20 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book save(Book book) {
         return bookRepository.save(book);
+    }
+
+    @Override
+    public boolean update(BookDto bookDto) {
+
+        Book book = bookRepository.findById(bookDto.getId()).get();
+
+        book.setName(bookDto.getName());
+        book.setGenre(bookDto.getGenre());
+        book.setQuantity(bookDto.getQuantity());
+        book.setPrice(bookDto.getPrice());
+
+        bookRepository.save(book);
+
+        return bookRepository.findById(book.getId()).isPresent();
     }
 }

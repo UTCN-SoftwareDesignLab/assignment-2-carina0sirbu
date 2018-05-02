@@ -6,8 +6,6 @@
 </head>
 <body>
 
-<h1>Author</h1>
-
 <h1>Book</h1>
 <form action="#" th:action="@{/book}" th:object = "${bookDto}" method="post">
 
@@ -20,6 +18,8 @@
 
     <p>Price: <input type="number" th:field="*{price}"  /></p>
     <p>Quantity: <input type="number" th:field="*{quantity}"  /></p>
+    <p>Id: <input type="number" th:field="*{id}"  /></p>
+
 
     <p><input type="submit" name = "create" value="Create book" /></p>
     <p><input type="submit" name = "delete" value="Delete book" /></p>

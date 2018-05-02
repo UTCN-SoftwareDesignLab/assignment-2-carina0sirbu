@@ -20,7 +20,6 @@ public class BookController {
 
     private BookService bookService;
     private AuthorService authorService;
-    private String searchName;
 
     @Autowired
     public BookController(BookService bookService, AuthorService authorService) {
@@ -66,7 +65,7 @@ public class BookController {
             return "login";
         }
 
-        this.searchName = name;
+
 
         Book book = bookService.findByName(name);
 
@@ -81,6 +80,7 @@ public class BookController {
             bookDto.setGenre(book.getGenre());
             bookDto.setPrice(book.getPrice());
             bookDto.setQuantity(book.getQuantity());
+            bookDto.setId(book.getId());
 
             model.addAttribute("bookDto", bookDto);
         }
@@ -112,29 +112,14 @@ public class BookController {
     }
 
     @PostMapping(params = "update")
-    public String updateBook(@RequestParam("name") String name,
-                             @RequestParam("authorName") String authorName,
-                             @RequestParam("genre") String genre,
-                             @RequestParam("price") double price,
-                             @RequestParam("quantity") int quantity,
-                             Model model, @ModelAttribute BookDto bookDto) {
+    public String updateBook(Model model, @ModelAttribute BookDto bookDto, BindingResult bindingResult) {
 
-        Book book = bookService.findByName(searchName);
-
-        Author author = authorService.findByName(authorName);
-
-        book.setAuthor(author);
-        book.setName(name);
-        book.setGenre(genre);
-        book.setPrice(price);
-        book.setQuantity(quantity);
-
-        if (bookService.save(book) == null) {
-            model.addAttribute("message", "Update failed");
+        if (bindingResult.hasErrors()) {
+            return "book";
         }
-        else {
-            model.addAttribute("message", "Book updated successfully");
-        }
+
+        bookService.update(bookDto);
+        model.addAttribute("message", "Update successful");
 
         return "book";
     }

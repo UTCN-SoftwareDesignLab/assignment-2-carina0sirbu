@@ -7,10 +7,20 @@ import java.util.List;
 
 public class AuthorDto {
 
+    private Long id;
+
     @Size(min = 1)
     private String name;
 
     private List<Book> bookList;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public List<Book> getBookList() {
         return bookList;

@@ -5,6 +5,7 @@ import model.Book;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface BookService {
@@ -17,6 +18,8 @@ public interface BookService {
 
     Book findByName(String name);
 
+    Optional<Book> findById(Long id);
+
     List<Book> findAllByGenre(String genre);
 
     List<Book> findAllByName(String name);
@@ -24,4 +27,6 @@ public interface BookService {
     List<Book> findAllByAuthorId(Long id);
 
     Book save(Book book);
+
+    boolean update(BookDto bookDto);
 }
