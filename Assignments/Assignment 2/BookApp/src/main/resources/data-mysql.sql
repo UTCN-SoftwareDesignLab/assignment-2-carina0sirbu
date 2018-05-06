@@ -1,0 +1,1 @@
+INSERT INTO user (id, username, password) VALUES (null, 'carina.sirbu', 'craciun2018#');
